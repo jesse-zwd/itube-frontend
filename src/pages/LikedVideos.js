@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import TrendingCard from "../components/TrendingCard";
 import { StyledTrending } from "./Trending";
 import Skeleton from "../skeletons/TrendingSkeleton";
-import { getLikedVideos } from "../reducers/likedVideo";
+import { getLikedVideos, clearLikedVideos } from "../reducers/likedVideo";
 
 const LikedVideos = () => {
   const dispatch = useDispatch();
@@ -12,6 +12,9 @@ const LikedVideos = () => {
 
   useEffect(() => {
     dispatch(getLikedVideos());
+    return () => {
+      dispatch(clearLikedVideos())
+    }
   }, [dispatch]);
   
   if (isFetching) {

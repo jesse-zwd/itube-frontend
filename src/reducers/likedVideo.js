@@ -17,12 +17,10 @@ const likedVideoSlice = createSlice({
     videos: [],
   },
   reducers: {
-    addToLikedVideos(state, action) {
-     
+    clearLikedVideos(state, action) {
+      state.isFetching = false
+      state.videos = []
     },
-    removeFromLikedVideos(state, action) {
-     
-    }
   },
   extraReducers: {
     [getLikedVideos.fulfilled]: (state, action) => {
@@ -33,8 +31,7 @@ const likedVideoSlice = createSlice({
 });
 
 export const {
-  addToLikedVideos,
-  removeFromLikedVideos,
+  clearLikedVideos,
 } = likedVideoSlice.actions;
 
 export default likedVideoSlice.reducer;

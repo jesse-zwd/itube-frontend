@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import Search from "../Search";
 import UploadVideo from "../UploadVideo";
 import Avatar from "../../styles/Avatar";
@@ -99,7 +100,10 @@ const Navbar = () => {
   const handleSignout = () => {
     dispatch(logout());
     localStorage.removeItem("user");
-    window.location = "/";
+    setTimeout(() => {
+			window.location = "/";
+    }, 2100);
+    toast.success("退出成功")
   }
 
   return (

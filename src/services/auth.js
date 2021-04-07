@@ -9,7 +9,7 @@ class AuthService {
             let token = res.data.access
             localStorage.setItem("user", JSON.stringify({...user, token}))
             
-            toast("登录成功")
+            toast.success("登录成功")
             return {...user, token}
         }).catch((error) => {
             toast.error(error)
@@ -18,7 +18,7 @@ class AuthService {
 
     signup(payload) {
         return http.post("signup/", payload).then(() => {
-            toast("注册成功，请登录")
+            toast.success("注册成功，请登录")
         }).catch((error) => {
             toast.error(error)
         })

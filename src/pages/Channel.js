@@ -169,7 +169,7 @@ const Channel = () => {
               alt="channel avatar"
             />
             <div>
-              <h3>{profile.username}</h3>
+              <h3>{profile.nickname}</h3>
               <span className="secondary">
                 {profile.subscribersCount} subscribers
               </span>

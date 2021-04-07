@@ -32,7 +32,7 @@ const searchResultSlice = createSlice({
     clearSearchResults(state, action) {
       state.users = [];
       state.videos = [];
-      state.isFetching = true;
+      state.isFetching = false;
     },
   },
   extraReducers: {
