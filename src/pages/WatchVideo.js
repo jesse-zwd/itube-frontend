@@ -203,7 +203,7 @@ const WatchVideo = () => {
       />
     );
   }
-
+  
   return (
     <Wrapper
       filledLike={video && video.isLiked}
@@ -245,7 +245,7 @@ const WatchVideo = () => {
               <div className="channel-info-meta">
                 <h4>
                   <Link to={`/channel/${video.user.id}`}>
-                    {video.user?.username}
+                    {video.user?.nickname}
                   </Link>
                 </h4>
                 <span className="secondary small">

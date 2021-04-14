@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Avatar from "../styles/Avatar";
 import { timeSince } from "../utils";
+import default_avatar from "../assets/default_avatar.jpg";
 
 const Wrapper = styled.div`
   .thumb {
@@ -41,6 +42,8 @@ const Wrapper = styled.div`
 `;
  
 const VideoCard = ({ nousername, hideavatar, video }) => {
+  const avatar = video.user.avatar ? video.user.avatar : default_avatar
+  
   return (
     <Wrapper>
       <img className="thumb" src={video.thumbnail} alt="thumbnail" />
@@ -49,7 +52,7 @@ const VideoCard = ({ nousername, hideavatar, video }) => {
           {!hideavatar && (
             <Avatar
               style={{ marginRight: "0.8rem" }}
-              src={video.user.avatar}
+              src={avatar}
               alt="channel avatar"
             />
           )}

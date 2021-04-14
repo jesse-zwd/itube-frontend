@@ -9,6 +9,7 @@ import Avatar from "../../styles/Avatar";
 import { HamburgerIcon, NotificationIcon, SignoutIcon } from "../Icons";
 import { openSidebar, closeSidebar } from "../../reducers/sidebar";
 import { logout } from "../../reducers/user";
+import default_avatar from "../../assets/default_avatar.jpg";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -92,6 +93,7 @@ const Navbar = () => {
 
   const { data: user } = useSelector((state) => state.user);
   const { sidebar: open } = useSelector((state) => state.sidebar);
+  const avatar = user.avatar ? user.avatar : default_avatar
 
   const handleToggleSidebar = () => {
     open ? dispatch(closeSidebar()) : dispatch(openSidebar());
@@ -129,7 +131,7 @@ const Navbar = () => {
         </li>
         <li>
           <Link to="/feed/my_videos">
-            <Avatar className="pointer" src={user.avatar} alt="user-avatar" />
+            <Avatar className="pointer" src={avatar} alt="avatar" />
           </Link>
         </li>
         <li>

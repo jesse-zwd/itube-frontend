@@ -18,7 +18,7 @@ const likedVideoSlice = createSlice({
   },
   reducers: {
     clearLikedVideos(state, action) {
-      state.isFetching = false
+      state.isFetching = true
       state.videos = []
     },
   },

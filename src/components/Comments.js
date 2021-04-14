@@ -8,6 +8,7 @@ import { addComment } from "../reducers/video";
 import { timeSince } from "../utils";
 import http from "../services/http";
 import authHeader from "../services/header"
+import default_avatar from "../assets/default_avatar.jpg";
 
 const Wrapper = styled.div`
   margin: 1rem 0;
@@ -62,7 +63,8 @@ const Comments = () => {
   const dispatch = useDispatch();
   const { data: user } = useSelector((state) => state.user);
   const { id: videoId, comments } = useSelector((state) => state.video.data);
-  
+  const avatar = user.avatar ? user.avatar : default_avatar
+
   const handleAddComment = async (e) => {
     if (e.keyCode === 13) {
       e.target.blur();
@@ -71,14 +73,21 @@ const Comments = () => {
         return toast.error("Please write a comment");
       }
       
-      const res = await http.post(
+      http.post(
         `comments/`, 
-        {text: comment.value, video: videoId, user: user.id},
+        {text: comment.value, video: videoId},
         { headers: authHeader()} 
-      )
-      const data = res.data
+      ).then((res) => {
+        const data = res.data
+        const commentUser = {
+          id: user.id,
+          avatar: user.avatar,
+          nickname: user.nickname
+        }
+        const newComment = { ...data, user: commentUser }
+        dispatch(addComment(newComment));
+      })
       
-      dispatch(addComment(data));
       comment.setValue("");
     }
   };
@@ -88,7 +97,7 @@ const Comments = () => {
       <h3>{comments?.length} comments</h3>
 
       <div className="add-comment">
-        <img src={user.avatar} alt="avatar" />
+        <img src={avatar} alt="avatar" />
         <textarea
           placeholder="Add a public comment"
           value={comment.value}
@@ -107,7 +116,7 @@ const Comments = () => {
               <p className="secondary">
                 <span>
                   <Link to={`/channel/${comment.user?.id}`}>
-                    {comment.user?.username}
+                    {comment.user?.nickname}
                   </Link>
                 </span>
                 <span style={{ marginLeft: "0.6rem" }}>

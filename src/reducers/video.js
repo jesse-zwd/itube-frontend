@@ -15,7 +15,7 @@ const videoSlice = createSlice({
   },
   reducers: {
     clearVideo(state, action) {
-      state.isFetching = false;
+      state.isFetching = true;
       state.data = {};
     },
     addComment(state, action) {

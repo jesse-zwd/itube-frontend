@@ -163,7 +163,7 @@ const UploadVideoModal = ({ previewVideo, closeModal, url, thumbnail }) => {
           User: {
             id: user.id,
             avatar: user.avatar,
-            username: user.username,
+            nickname: user.nickname,
           },
         })
       );
