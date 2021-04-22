@@ -6,7 +6,7 @@ export const login = createAsyncThunk(
     async ({ payload, clearForm }) => {
       const user = await AuthService.login(payload)
 
-        if (user.token) {
+        if (user.access) {
             clearForm()
             return user
         }

@@ -9,7 +9,7 @@ import Auth from "./components/Auth/Auth";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
-  const { token } = useSelector((state) => state.user.data);
+  const { access } = useSelector((state) => state.user.data);
   
   return (
     <ThemeProvider theme={darkTheme}>
@@ -19,7 +19,7 @@ const App = () => {
         position="top-right"
         closeButton={false}
       />
-      {token ? <Router /> : <Auth />}
+      {access ? <Router /> : <Auth />}
     </ThemeProvider>
   );
 };
