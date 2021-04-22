@@ -1,9 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import http from '../services/http'
-import authHeader from "../services/header";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
+import { videoViewed } from "../services/api";
 
 const Player = ({ previewUrl }) => {
   const videoRef = useRef(null); 
@@ -26,7 +25,7 @@ const Player = ({ previewUrl }) => {
     }
 
     vjsPlayer.on("ended", () => {
-      http.post(`view/`, {video: videoId}, {headers: authHeader()})
+      videoViewed(videoId)
     });
 
     return () => {

@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled, { keyframes } from "styled-components";
 import { toast } from "react-toastify";
-import http from '../services/http'
 import Player from "./Player";
 import Button from "../styles/Button";
 import { CloseIcon } from "./Icons";
 import useInput from "../hooks/useInput";
 import { addToRecommendation } from "../reducers/recommendation";
-import authHeader from "../services/header";
+import { newVideo } from "../services/api";
 
 const openModal = keyframes`
 	from {
@@ -142,17 +141,14 @@ const UploadVideoModal = ({ previewVideo, closeModal, url, thumbnail }) => {
         return toast.error("Please fill in all the fields");
       }
 
-      const newVideo = {
+      const payload = {
         title: title.value,
         description: description.value,
         url,
         thumbnail,
       };
 
-      let video = {}
-      http.post(`videos`, newVideo, {headers: authHeader()}).then((res) => {
-        video = res.data
-      })
+      const video = newVideo(payload)
 
       closeModal();
 

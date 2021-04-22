@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
 import { toast } from "react-toastify";
-import http from '../services/http'
 import { CloseIcon } from "./Icons";
 import Button from "../styles/Button";
 import useInput from "../hooks/useInput";
 import { updateUser } from "../reducers/user";
 import { updateProfile } from "../reducers/profile";
 import { updateUserLocalSt, upload } from "../utils";
-import authHeader from "../services/header";
+import { saveProfile } from "../services/api";
 
 const openModal = keyframes`
 	from {
@@ -152,7 +151,7 @@ const EditProfileModal = ({ closeModal }) => {
 
     dispatch(updateUser(updates));
 
-    http.put(`profile/${profile.id}/`, updates, {headers: authHeader()})
+    saveProfile({id: profile.id, updates})
 
     updateUserLocalSt(updates);
     toast.dark("Profile updated");

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { Link, useParams } from "react-router-dom";
-import http from '../services/http'
 
 // UI elements
 import Player from "../components/Player";
@@ -31,7 +30,7 @@ import {
   removeChannelLocalSt,
   timeSince,
 } from "../utils";
-import authHeader from '../services/header'
+import { newLike, newDislike, deleteLike, deleteDislike, newChannel, deleteChannel } from "../services/api";
 
 const Wrapper = styled.div`
   display: grid;
@@ -142,28 +141,28 @@ const WatchVideo = () => {
 
   const handleLike = () => {
     if (video.isLiked) {
-      http.delete(`videolike/${videoId}/`, {headers: authHeader()})
+      deleteLike(videoId)
       dispatch(cancelLike());
     } else {
-      http.post(`videolike/`, {video: videoId}, {headers: authHeader()})
+      newLike(videoId)
       dispatch(like());
     }
     if (video.isDisliked) {
-      http.delete(`videodislike/${videoId}/`, {headers: authHeader()})
+      deleteDislike(videoId)
       dispatch(cancelDislike());
     } 
   };
 
   const handleDislike = () => {
     if (video.isDisliked) {
-      http.delete(`videodislike/${videoId}/`, {headers: authHeader()})
+      deleteDislike(videoId)
       dispatch(cancelDislike());
     } else {
-      http.post(`videodislike/`, {video: videoId}, {headers: authHeader()})
+      newDislike(videoId)
       dispatch(dislike());
     }
     if (video.isLiked) {
-      http.delete(`videolike/${videoId}/`, {headers: authHeader()})
+      deleteLike(videoId)
       dispatch(cancelLike());
     } 
   };
@@ -172,14 +171,14 @@ const WatchVideo = () => {
     dispatch(subscribeFromVideo());
     dispatch(addChannel(channel));
     addChannelLocalSt(channel);
-    http.post(`channel/`, {channel: channel.id}, {headers: authHeader()})
+    newChannel(channel.id)
   };
 
   const handleUnsubscribe = (channelId) => {
     dispatch(unsubscribeFromVideo());
     dispatch(removeChannel(channelId));
     removeChannelLocalSt(channelId);
-    http.delete(`channel/${channelId}/`, {headers: authHeader()})
+    deleteChannel(channelId)
   };
 
   useEffect(() => {

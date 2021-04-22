@@ -72,10 +72,12 @@ const Comments = () => {
       if (!comment.value.trim()) {
         return toast.error("Please write a comment");
       }
+
+      const payload = {text: comment.value, video: videoId}
       
       http.post(
         `comments/`, 
-        {text: comment.value, video: videoId},
+        payload,
         { headers: authHeader()} 
       ).then((res) => {
         const data = res.data

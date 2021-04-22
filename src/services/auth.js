@@ -5,7 +5,7 @@ class AuthService {
     login(payload) {
         return http.post("login/", payload).then((res) => {
             
-            let user = res.data
+            const user = res.data
             localStorage.setItem("user", JSON.stringify(user))
             
             toast.success("登录成功")

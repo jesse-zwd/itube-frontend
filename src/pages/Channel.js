@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { useParams } from "react-router-dom";
-import http from '../services/http'
-import authHeader from "../services/header";
+import { newChannel, deleteChannel } from "../services/api";
 
 // components
 import EditProfile from "../components/EditProfile";
@@ -123,14 +122,14 @@ const Channel = () => {
     dispatch(subscribeFromProfile());
     dispatch(addChannel(channel));
     addChannelLocalSt(channel);
-    http.post(`channel/`, {channel: channel.id}, {headers: authHeader()})
+    newChannel(channel.id)
   };
 
   const handleUnsubscribe = (channelId) => {
     dispatch(unsubscribeFromProfile());
     dispatch(removeChannel(channelId));
     removeChannelLocalSt(channelId);
-    http.delete(`channel/${channelId}/`, {headers: authHeader()})
+    deleteChannel(channelId)
   };
 
   useEffect(() => {

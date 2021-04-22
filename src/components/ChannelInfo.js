@@ -3,8 +3,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Button from "../styles/Button";
-import http from '../services/http'
-import authHeader from "../services/header";
+import { newChannel, deleteChannel } from "../services/api";
 
 // reducers and utils
 import { addChannel, removeChannel } from "../reducers/user";
@@ -91,7 +90,7 @@ const ChannelInfo = ({ search, channel }) => {
 
     dispatch(addChannel(channel));
     addChannelLocalSt(channel);
-    http.post(`channel/`, {channel: channel.id}, {headers: authHeader()})
+    newChannel(channel.id)
   };
 
   const handleUnsubscribe = (channelId) => {
@@ -103,7 +102,7 @@ const ChannelInfo = ({ search, channel }) => {
 
     dispatch(removeChannel(channelId));
     removeChannelLocalSt(channelId);
-    http.delete(`channel/${channelId}/`, {headers: authHeader()})
+    deleteChannel(channelId)
   };
 
   return (
