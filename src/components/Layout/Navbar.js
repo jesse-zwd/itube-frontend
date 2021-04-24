@@ -102,9 +102,6 @@ const Navbar = () => {
   const handleSignout = () => {
     dispatch(logout());
     localStorage.removeItem("user");
-    setTimeout(() => {
-			window.location = "/";
-    }, 2100);
     toast.success("退出成功")
   }
 

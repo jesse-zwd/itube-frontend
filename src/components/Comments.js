@@ -6,9 +6,8 @@ import { toast } from "react-toastify";
 import useInput from "../hooks/useInput";
 import { addComment } from "../reducers/video";
 import { timeSince } from "../utils";
-import http from "../services/http";
-import authHeader from "../services/header"
 import default_avatar from "../assets/default_avatar.jpg";
+import { newComment } from "../services/api";
 
 const Wrapper = styled.div`
   margin: 1rem 0;
@@ -75,12 +74,7 @@ const Comments = () => {
 
       const payload = {text: comment.value, video: videoId}
       
-      http.post(
-        `comments/`, 
-        payload,
-        { headers: authHeader()} 
-      ).then((res) => {
-        const data = res.data
+      newComment(payload).then((data) => {
         const commentUser = {
           id: user.id,
           avatar: user.avatar,

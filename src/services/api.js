@@ -26,7 +26,7 @@ export const deleteDislike = async (id) => {
 }
 
 export const newComment = async (payload) => {
-    const res = http.post(`comments/`, payload, { headers: authHeader() })
+    const res = await http.post(`comments/`, payload, { headers: authHeader() })
     return res.data
 }
 
@@ -39,6 +39,6 @@ export const videoViewed = async (id) => {
 }
 
 export const newVideo = async (payload) => {
-    const res = http.post(`videos/`, payload, {headers: authHeader()})
+    const res = await http.post(`videos/`, payload, {headers: authHeader()})
     return res.data
 }
